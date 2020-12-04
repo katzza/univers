@@ -1,0 +1,38 @@
+table university {
+  id int pk
+	name varchar
+	short_name varchar(20)
+	foundation_year int
+}
+
+table faculty {
+  faculty_id int pk
+  name varchar
+  university_id int
+}
+
+table department {
+  id int pk
+  name varchar
+  faculty_id int
+}
+
+table student {
+  student_card int pk
+  last_name varchar
+  first_name varchar
+  birthday date
+  group_key varchar
+}
+
+table group {
+  group_key varchar pk
+  department_id int
+}
+
+table subject {
+  id int pk
+  subject varchar
+  count_of_hours int
+  faculty_id int
+}
