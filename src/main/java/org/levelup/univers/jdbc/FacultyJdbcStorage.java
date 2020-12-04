@@ -2,6 +2,7 @@ package org.levelup.univers.jdbc;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
@@ -27,6 +28,33 @@ public class FacultyJdbcStorage {                             // Storage Мес�
             System.out.println(exc.getMessage());
             throw new RuntimeException();
         }
+    }
+
+    public HashMap findFacultyBySql(String sql, Object... args) {  //vararg
+        HashMap result = new HashMap();
+        try (Connection connection = jdbcService.openConnection()) {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            int parameterIndex = 1;
+            for (Object argument : args) {statement.setObject(parameterIndex++, argument);}
+            ResultSet rs = statement.executeQuery();  //для PreparedStatement  нельзя передавать строку так: statement
+
+            while (rs.next()) {
+                //rs - указатель на текущую строку в цикле
+                int id = rs.getInt(1);
+                String name = rs.getString(2);
+                int university_id = rs.getInt("university_id");
+                System.out.println("Найден факультет: " + id + " " + name + " " + university_id);
+                result.put("id", id);
+                result.put("name", name);
+                result.put("university_id", university_id);
+                return result;
+            }
+        } catch (
+                SQLException exc) {
+            System.out.println(exc.getMessage());
+            throw new RuntimeException();
+        }
+        return result;
     }
 
     private void checkUniversity_id(int university_id) {
