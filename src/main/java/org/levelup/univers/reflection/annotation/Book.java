@@ -7,4 +7,15 @@ public class Book {
 
     @RandomInt(min = 10, max = 2000)
     private int pagesCount;
+
+    private int symbolCount;
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "bookNumber=" + bookNumber +
+                ", pagesCount=" + pagesCount +
+                ", symbolCount=" + symbolCount +
+                '}';
+    }
 }
