@@ -51,8 +51,9 @@ public class ScanningFiles {
         for (var claz : javaObjects
         ) {
             if (claz.isAnnotationPresent(ReflectionClass.class)) {
-                Object o = claz.getDeclaredConstructor().newInstance();
-                System.out.println(o.toString());
+                ReflectionClassAnnotationProcessor.create(claz);
+      /*          Object o = claz.getDeclaredConstructor().newInstance();
+                System.out.println(o.toString());*/
             }
 
         }
