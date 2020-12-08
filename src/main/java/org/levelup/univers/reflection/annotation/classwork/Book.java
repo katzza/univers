@@ -1,4 +1,4 @@
-package org.levelup.univers.reflection.annotation;
+package org.levelup.univers.reflection.annotation.classwork;
 
 public class Book {
 

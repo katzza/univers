@@ -1,5 +1,8 @@
-package org.levelup.univers.reflection.classes_for_homework.p1;
+package ru.levelup.lessons.p1;
 
+import org.levelup.univers.reflection.annotation.homework.ReflectionClass;
+
+@ReflectionClass
 public class Cat {
     private String name;
     private Food food;

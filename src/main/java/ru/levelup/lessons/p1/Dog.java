@@ -1,13 +1,10 @@
-package org.levelup.univers.reflection.classes_for_homework.p1;
-
-import org.levelup.univers.reflection.homework.RandomInt;
+package ru.levelup.lessons.p1;
 
 public class Dog {
     public String breed;
    // @RandomInt(min = 1, max = 20)
     private String name;
     public Colour color;
-    @RandomInt(min = 1, max = 20)
     public int age;
 
     public Dog() {

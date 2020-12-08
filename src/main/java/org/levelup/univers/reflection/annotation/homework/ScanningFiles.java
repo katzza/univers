@@ -1,18 +1,20 @@
-package org.levelup.univers.reflection.homework;
+package org.levelup.univers.reflection.annotation.homework;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 public class ScanningFiles {
-    public void scanProjectAndCreateClass(String targetPackageName) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        //сканируем проект и добываем файлы с расширением .java из целефой папки
+
+    public void scanProjectAndCreateClass(
+            String targetPackageName) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        //сканируем проект и добываем файлы с расширением .java из целевой папки
         String path = System.getProperty("user.dir");  //сам проект
         File folder = new File(path);
-        ArrayList<String> files = new ArrayList<>();
+        ArrayList <String> files = new ArrayList <>();
         processFilesFromFolder(folder, targetPackageName, files); //рекурсивно
         //создаём объекты классов через reflection
-        ArrayList<String> javaClasses = new ArrayList<>();
+        ArrayList <String> javaClasses = new ArrayList <>();
         for (String file : files
         ) {
             int substrIndex = file.lastIndexOf("\\ru\\levelup");
@@ -21,7 +23,7 @@ public class ScanningFiles {
         createObjects(javaClasses);
     }
 
-    private void processFilesFromFolder(File folder, String targetPackageName, ArrayList<String> files) {
+    private void processFilesFromFolder(File folder, String targetPackageName, ArrayList <String> files) {
         File[] folderEntries = folder.listFiles();
         assert folderEntries != null;
         for (File entry : folderEntries) {
@@ -31,30 +33,29 @@ public class ScanningFiles {
             }
             // иначе вам попался файл, обрабатывайте его!
             if (entry.toString().contains(targetPackageName)
-                    && entry.toString().length() - entry.toString().lastIndexOf(".java") == 5)
+                    && entry.toString().length() - entry.toString().lastIndexOf(".java") == 5) {
                 files.add(entry.toString());
+            }
         }
     }
 
-    private void createObjects(ArrayList<String> javaClasses) throws ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
+    private void createObjects(
+            ArrayList <String> javaClasses) throws ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
         //создали объект  Class
-        ArrayList<Class> javaObjects = new ArrayList<>();
+        ArrayList <Class> javaObjects = new ArrayList <>();
         for (String javaClass : javaClasses) {
-            Class<?> claz = Class.forName(javaClass);
+            Class <?> claz = Class.forName(javaClass);
             javaObjects.add(claz);
         }
-        //создали объекты
+        //создали объекты, если встретили аннотацию
         for (var claz : javaObjects
         ) {
-            Object o = claz.getDeclaredConstructor().newInstance();
-            try {
-                RandomIntAnnotationProcessor.process(o);
-            } catch (reflection.homework.InvalidTypeException e) {
-                System.exit(0);
+            if (claz.isAnnotationPresent(ReflectionClass.class)) {
+                Object o = claz.getDeclaredConstructor().newInstance();
+                System.out.println(o.toString());
             }
-            System.out.println(o.toString());
+
         }
     }
-
 
 }

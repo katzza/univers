@@ -1,10 +1,11 @@
-package org.levelup.univers.reflection.classes_for_homework.p2;
+package ru.levelup.lessons.p2;
 
-import org.levelup.univers.reflection.homework.RandomInt;
+import org.levelup.univers.reflection.annotation.homework.ReflectionClass;
 
+@ReflectionClass
 public class Fish {
     public String name;
-    @RandomInt(min = 5, max = 30)
+
     private int weight;
 
     public Fish() {
