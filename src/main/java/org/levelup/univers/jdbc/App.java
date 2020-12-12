@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class App {
     public static void main(String[] args) {
-        UniversJdbcStorage universJdbcStorage = new UniversJdbcStorage();
+        UniversJdbcStorage universJdbcStorage = new UniversJdbcStorage(new JdbcService());
         FacultyJdbcStorage facultyJdbcStorage = new FacultyJdbcStorage();
       /*  try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             System.out.println("name");

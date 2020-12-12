@@ -6,8 +6,8 @@ import java.util.HashMap;
 public class UniversJdbcStorage {
     public JdbcService jdbcService;
 
-    public UniversJdbcStorage() {
-        this.jdbcService = new JdbcService();
+    public UniversJdbcStorage(JdbcService jdbcService) {
+        this.jdbcService = jdbcService;
     }
 
     public void createUniversity(String name, String shortname, int foundationYear) {
@@ -64,7 +64,7 @@ public class UniversJdbcStorage {
                 String name = rs.getString(2);
                 String shortName = rs.getString("short_name");
                 int foundationYear = rs.getInt("foundation_year");
-                System.out.println("Найден университет: "+ id + " " + name + " " + shortName + " " + foundationYear);
+                System.out.println("Найден университет: " + id + " " + name + " " + shortName + " " + foundationYear);
                 result.put("id", id);
                 result.put("name", name);
                 result.put("shortName", shortName);

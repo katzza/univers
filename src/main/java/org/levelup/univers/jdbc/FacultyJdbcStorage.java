@@ -58,7 +58,7 @@ public class FacultyJdbcStorage {                             // Storage Мес�
     }
 
     private void checkUniversity_id(int university_id) {
-        UniversJdbcStorage storage = new UniversJdbcStorage();
+        UniversJdbcStorage storage = new UniversJdbcStorage(new JdbcService());
         HashMap universityById = storage.findBySql("select * from university where id =?", university_id);
         if (!(universityById.size() == 4)) {
             throw new IllegalArgumentException("university_id is incorrect - it's absent in the table university");
