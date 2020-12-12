@@ -50,11 +50,11 @@ public class UniversitiesJbdsStorageTest {
         //when
         jdbcStorage.createUniversity(name, shortname, foundationYear);
         //then
-        // Mockito.verify(statement.executeUpdate());  //в конце работает, в начале - нет
+        Mockito.verify(statement).executeUpdate();
         Mockito.verify(statement, Mockito.times(2))
                .setString(ArgumentMatchers.anyInt(), ArgumentMatchers.anyString());
         Mockito.verify(statement).setInt(3, foundationYear);
-       // Mockito.verify(statement).executeUpdate();
+
     }
 
     @Test
@@ -64,12 +64,12 @@ public class UniversitiesJbdsStorageTest {
         String shortname = "short name";
         int foundationYear = -1;
 
-       Throwable thrown = assertThrows(IllegalArgumentException.class, () -> {
+        Throwable thrown = assertThrows(IllegalArgumentException.class, () -> {
             jdbcStorage.createUniversity(name, shortname, foundationYear);
         });
         assertNotNull(thrown.getMessage());
 
-     //   doThrow().when(jdbcStorage).createUniversity(name, shortname, foundationYear);
+        //   doThrow().when(jdbcStorage).createUniversity(name, shortname, foundationYear);
 
     }
 }
