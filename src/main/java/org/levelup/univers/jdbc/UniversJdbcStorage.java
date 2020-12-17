@@ -12,7 +12,7 @@ public class UniversJdbcStorage {
 
     public void createUniversity(String name, String shortname, int foundationYear) {
         if (foundationYear < 0) {
-            throw new IllegalArgumentException("Year must be > positive");
+            throw new IllegalArgumentException("Year must be positive");
         }
         try (Connection connection = jdbcService.openConnection()) {
             PreparedStatement statement = connection.prepareStatement("insert into university (name, short_name," +

@@ -1,5 +1,6 @@
 package org.levelup.utils.universities;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.levelup.univers.jdbc.JdbcService;
@@ -13,8 +14,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doThrow;
 
 public class UniversitiesJbdsStorageTest {
@@ -26,6 +26,8 @@ public class UniversitiesJbdsStorageTest {
     private Connection connection;
     @Mock
     private PreparedStatement statement;
+    @Mock
+    private UniversJdbcStorage universJdbcStorage;
 
     //1 variant
     @BeforeEach
@@ -42,7 +44,7 @@ public class UniversitiesJbdsStorageTest {
 
     @Test
     public void testCreateUniversity_whenDataisvalid_thenCreateUniversity() throws SQLException {
-//given
+        //given
         String name = "name";
         String shortname = "short name";
         int foundationYear = 1974;
@@ -59,7 +61,7 @@ public class UniversitiesJbdsStorageTest {
 
     @Test
     public void testCreateUniversity_whenDataIsInvalid_thenIllegalArgumentException() throws SQLException {
-//given
+        //given
         String name = "name";
         String shortname = "short name";
         int foundationYear = -1;
@@ -70,7 +72,47 @@ public class UniversitiesJbdsStorageTest {
         assertNotNull(thrown.getMessage());
 
         //   doThrow().when(jdbcStorage).createUniversity(name, shortname, foundationYear);
+    }
 
+    @Test
+    public void testCreateUniversity_whenDataIsInvalid_thenIllegalArgumentExceptionCheckText() throws SQLException {
+        //given
+        String name = "name";
+        String shortname = "short name";
+        int foundationYear = -1;
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () ->
+                jdbcStorage.createUniversity(name, shortname, foundationYear));
+        assertEquals("Year must be positive", exception.getMessage());
+     }
+
+
+    @Test
+    public void testCreateUniversity_whenDataIsInvalid_thenIllegalArgumentExceptionOption2() throws SQLException {
+        //given
+        String name = "name";
+        String shortname = "short name";
+        int foundationYear = -2;
+//todo тут не понимаю, что происходит - код Марины
+        Mockito.doThrow(IllegalArgumentException.class).when(universJdbcStorage).createUniversity(name, shortname,
+                                                                                                  foundationYear);
+        assertThrows(IllegalArgumentException.class, () -> jdbcStorage.createUniversity("", "", -3));
+
+        Mockito.when(jdbcService.openConnection()).thenThrow(SQLException.class);
+
+        assertThrows(RuntimeException.class, () ->
+                jdbcStorage.createUniversity("", "", 1000));
+    }
+
+    @Test
+    public void testCreateUniversity_whenCouldNotOpenConnection_thenThrowException() throws SQLException {
+        // given
+        Mockito.when(jdbcService.openConnection()).thenThrow(SQLException.class);
+        // Mockito.doThrow(SQLException.class).when(jdbcService).openConnection();
+        // Mockito.doThrow(SQLException.class).when(statement).setNull(1,1);
+        // where
+        Assertions.assertThrows(RuntimeException.class, () ->
+                jdbcStorage.createUniversity("name", "short name", 1000));
     }
 }
 
