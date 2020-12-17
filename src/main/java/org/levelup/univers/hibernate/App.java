@@ -18,6 +18,7 @@ public class App {
     //     System.out.println("ID ЛЭТИ: " + university.getId()); */
         System.out.println( universityRepository.findByFoundationYear(1894).toString());
         System.out.println( universityRepository.findByFoundationYear(18094).toString());
+        System.out.println(universityRepository.findAllFoundedUniversitiesBetweenYears(0, 2000));
 
         factory.close();
     }

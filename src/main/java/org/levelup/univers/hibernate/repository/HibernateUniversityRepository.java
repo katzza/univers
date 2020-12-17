@@ -81,11 +81,9 @@ public class HibernateUniversityRepository implements
     @Override
     public Collection <UniversityEntity> findAllFoundedUniversitiesBetweenYears(int yearStart, int yearEnd) {
         try (Session s = factory.openSession()) {
-            return s.createQuery("from UniversityEntity where foundation_year between" +
-                                         "yearStart = :yearStart and yearEnd = :yearEnd",
-                                 UniversityEntity.class)  //java field
-                    .setParameter("yearStart", yearStart)
-                    .setParameter("yearEnd", yearEnd)
+            return s.createQuery("from UniversityEntity where foundation_year between " +
+                                         +yearStart + " and " + yearEnd,
+                                 UniversityEntity.class)
                     .getResultList();
         }
     }
