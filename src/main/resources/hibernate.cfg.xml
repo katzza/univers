@@ -15,6 +15,7 @@
         <property name="hibernate.hbm2ddl.auto">validate</property>
 
         <mapping class="org.levelup.univers.hibernate.domain.UniversityEntity"/>
+        <mapping class="org.levelup.univers.hibernate.domain.FacultyEntity"/>
 
 
     </session-factory>

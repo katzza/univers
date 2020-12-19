@@ -30,6 +30,22 @@ public class FacultyJdbcStorage {                             // Storage Мес�
         }
     }
 
+    public void updateFacultyName(String name, int university_id) {
+        checkUniversity_id(university_id);
+        try (Connection connection = jdbcService.openConnection()) {
+            PreparedStatement statement = connection.prepareStatement("UPDATE university SET short_NAME = 'qqq', " +
+                                                                              "name = ? where id = ?");
+            statement.setString(1, name);
+            statement.setInt(2, university_id);
+            int rowAffected = statement.executeUpdate(); //используется для insert/update/delete
+            System.out.println("Rows affected = " + rowAffected);
+        } catch (
+                SQLException exc) {
+            System.out.println(exc.getMessage());
+            throw new RuntimeException();
+        }
+    }
+
     public HashMap findFacultyBySql(String sql, Object... args) {  //vararg
         HashMap result = new HashMap();
         try (Connection connection = jdbcService.openConnection()) {

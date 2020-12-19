@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.levelup.univers.hibernate.domain.FacultyEntity;
 import org.levelup.univers.hibernate.domain.UniversityEntity;
 
 import java.util.Collection;
@@ -27,6 +28,28 @@ public class HibernateUniversityRepository implements
             return university;
         }
 
+    }
+
+    @Override
+    public UniversityEntity createUniversity(String name, String shortName, int foundationYear, int facultyId,
+                                             String facultyName) {
+        try (Session s = factory.openSession()) { // открываем сессию (соединение к базе)
+            Transaction transaction = s.beginTransaction(); // начали транзакцию
+
+            UniversityEntity university = new UniversityEntity(name, shortName, foundationYear);
+
+            FacultyEntity faculty = new FacultyEntity();
+            faculty.setFacultyId(facultyId);
+            faculty.setName(facultyName);
+            faculty.setUniversity(university);
+
+            s.persist(university); // делаем insert в таблицу university
+            s.persist(faculty);
+
+            transaction.commit(); // завершаем транзакцию успешно (фиксируем все изменения, сделанные в транзакции)
+
+            return university;
+        }
     }
 
     @Override

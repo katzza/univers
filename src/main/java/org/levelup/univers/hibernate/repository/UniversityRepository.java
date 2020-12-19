@@ -7,6 +7,9 @@ import java.util.Collection;
 public interface UniversityRepository {
     UniversityEntity createUniversity(String name, String shortName, int foundationYear);
 
+    UniversityEntity createUniversity(String name, String shortName, int foundationYear, int facultyId,
+                                      String facultyName);
+
     UniversityEntity findById(int universityId);
 
     Collection <UniversityEntity> findAll();

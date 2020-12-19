@@ -13,14 +13,16 @@ public class App {
     public static void main(String[] args) {
         SessionFactory factory = HibernateConfiguration.getFactory();
          UniversityRepository universityRepository = new HibernateUniversityRepository(factory);
-  /*   UniversityEntity university = universityRepository
-                .createUniversity("МИР-1", "М1", 1003);
-    //     System.out.println("ID ЛЭТИ: " + university.getId()); */
+  UniversityEntity university = universityRepository
+                .createUniversity("МИР-2", "М2", 1004, 2456, "faculty");
+      /*     System.out.println("ID ЛЭТИ: " + university.getId());
         System.out.println( universityRepository.findByFoundationYear(1894).toString());
         System.out.println( universityRepository.findByFoundationYear(18094).toString());
-        System.out.println(universityRepository.findAllFoundedUniversitiesBetweenYears(0, 2000));
+        System.out.println(universityRepository.findAllFoundedUniversitiesBetweenYears(0, 2000)); */
 
         factory.close();
+
+
     }
 
 }

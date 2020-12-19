@@ -9,6 +9,7 @@ public class App {
     public static void main(String[] args) {
         UniversJdbcStorage universJdbcStorage = new UniversJdbcStorage(new JdbcService());
         FacultyJdbcStorage facultyJdbcStorage = new FacultyJdbcStorage();
+        facultyJdbcStorage.updateFacultyName("hjdhdskfd", 100);
       /*  try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             System.out.println("name");
             String name = reader.readLine();
@@ -25,7 +26,7 @@ public class App {
         //HashMap result1 = universJdbcStorage.findBySql("select * from university where id =?", 1);
         //System.out.println();
         //       universJdbcStorage.findBySql("select * from university where short_name like ?", "'С%'");
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
+     /*   try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             System.out.println("faculty name");
             String name = reader.readLine();
             System.out.println("uni id");
@@ -33,6 +34,6 @@ public class App {
             facultyJdbcStorage.createFaculty(name, universityId);
         } catch (IOException exc) {
             throw new RuntimeException();
-        }
+        }*/
     }
 }
