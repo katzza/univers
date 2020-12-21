@@ -12,6 +12,10 @@ import java.sql.SQLException;
 
 public class HibernateUniversityRepositoryTest {
     private HibernateUniversityRepository hibernateUniversityRepository;
+
+    //static mocking -> PowerMock
+    //final mocking -> easyMock for enum-mocking
+
     @Mock
     private SessionFactory factory;
 

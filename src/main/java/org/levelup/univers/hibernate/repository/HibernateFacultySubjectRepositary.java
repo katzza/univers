@@ -8,6 +8,7 @@ import org.levelup.univers.hibernate.domain.SubjectEntity;
 
 @RequiredArgsConstructor
 public class HibernateFacultySubjectRepositary implements FacultySubjectRepositary{
+
     private final SessionFactory factory;
 
     public void waeveSubjectAndFaculty(Integer subjectId, Integer facultyId){
