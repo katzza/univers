@@ -19,7 +19,7 @@ public class FacultyEntity {
     private Integer facultyId;
     private String name;
 
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn(name = "university_id")
     private UniversityEntity university;
 

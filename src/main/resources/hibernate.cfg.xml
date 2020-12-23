@@ -16,6 +16,8 @@
 
         <mapping class="org.levelup.univers.hibernate.domain.UniversityEntity"/>
         <mapping class="org.levelup.univers.hibernate.domain.FacultyEntity"/>
+        <mapping class="org.levelup.univers.hibernate.domain.SubjectInfoEntityEntity"/>
+        <mapping class="org.levelup.univers.hibernate.domain.SubjectEntityEntity"/>
 
 
     </session-factory>
